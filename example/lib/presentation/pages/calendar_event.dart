@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:intl/intl.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 import '../date_time_picker.dart';
 import '../recurring_event_dialog.dart';
@@ -37,10 +38,10 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
   late DeviceCalendarPlugin _deviceCalendarPlugin;
   final RecurringEventDialog? _recurringEventDialog;
 
-  TZDateTime? _startDate;
+  tz.TZDateTime? _startDate;
   TimeOfDay? _startTime;
 
-  TZDateTime? _endDate;
+  tz.TZDateTime? _endDate;
   TimeOfDay? _endTime;
 
   AutovalidateMode _autovalidate = AutovalidateMode.disabled;
@@ -51,7 +52,7 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
   RecurrenceRuleEndType? _recurrenceRuleEndType;
   int? _totalOccurrences;
   int? _interval;
-  late DateTime _recurrenceEndDate;
+  DateTime? _recurrenceEndDate;
   RecurrenceFrequency? _recurrenceFrequency = RecurrenceFrequency.Daily;
   List<DayOfWeek> _daysOfWeek = [];
   int? _dayOfMonth;
@@ -68,39 +69,28 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
 
   _CalendarEventPageState(
       this._calendar, this._event, this._recurringEventDialog) {
+    _initializeDefaults();
     getCurentLocation();
   }
 
-  void getCurentLocation() async {
-    try {
-      _timezone = await FlutterTimezone.getLocalTimezone();
-    } catch (e) {
-      print('Could not get the local timezone');
-    }
-
+  void _initializeDefaults() {
+    // Initialize with defaults immediately for UI rendering
     _deviceCalendarPlugin = DeviceCalendarPlugin();
-
     _attendees = <Attendee>[];
     _reminders = <Reminder>[];
     _recurrenceRuleEndType = RecurrenceRuleEndType.Indefinite;
-
+    
     if (_event == null) {
-      print('calendar_event _timezone ------------------------- $_timezone');
-      var currentLocation = timeZoneDatabase.locations[_timezone];
-      if (currentLocation != null) {
-        _startDate = TZDateTime.now(currentLocation);
-        _endDate =
-            TZDateTime.now(currentLocation).add(const Duration(hours: 1));
-      } else {
-        var fallbackLocation = timeZoneDatabase.locations['Etc/UTC'];
-        _startDate = TZDateTime.now(fallbackLocation!);
-        _endDate =
-            TZDateTime.now(fallbackLocation).add(const Duration(hours: 1));
-      }
+      // Initialize with UTC first, will be updated when timezone loads
+      var fallbackLocation = tz.getLocation('UTC');
+      _startDate = tz.TZDateTime.now(fallbackLocation);
+      _endDate = tz.TZDateTime.now(fallbackLocation).add(const Duration(hours: 1));
       _event = Event(_calendar.id, start: _startDate, end: _endDate);
-
-      print('DeviceCalendarPlugin calendar id is: ${_calendar.id}');
-
+      
+      // Initialize start and end times
+      _startTime = TimeOfDay.fromDateTime(_startDate?.toLocal() ?? DateTime.now());
+      _endTime = TimeOfDay.fromDateTime(_endDate?.toLocal() ?? DateTime.now().add(const Duration(hours: 1)));
+      
       _recurrenceEndDate = _endDate as DateTime;
       _dayOfMonth = 1;
       _monthOfYear = MonthOfYear.January;
@@ -110,8 +100,13 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
     } else {
       _startDate = _event!.start!;
       _endDate = _event!.end!;
+      
+      // Initialize start and end times from existing event dates
+      _startTime = TimeOfDay.fromDateTime(_startDate!.toLocal());
+      _endTime = TimeOfDay.fromDateTime(_endDate!.toLocal());
+      
       _isRecurringEvent = _event!.recurrenceRule != null;
-
+      
       if (_event!.attendees!.isNotEmpty) {
         _attendees.addAll(_event!.attendees! as Iterable<Attendee>);
       }
@@ -119,45 +114,91 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
       if (_event!.reminders!.isNotEmpty) {
         _reminders.addAll(_event!.reminders!);
       }
+    }
+  }
 
-      if (_isRecurringEvent) {
-        _interval = _event!.recurrenceRule!.interval!;
-        _totalOccurrences = _event!.recurrenceRule!.totalOccurrences;
-        _recurrenceFrequency = _event!.recurrenceRule!.recurrenceFrequency;
-
-        if (_totalOccurrences != null) {
-          _recurrenceRuleEndType = RecurrenceRuleEndType.MaxOccurrences;
-        }
-
-        if (_event!.recurrenceRule!.endDate != null) {
-          _recurrenceRuleEndType = RecurrenceRuleEndType.SpecifiedEndDate;
-          _recurrenceEndDate = _event!.recurrenceRule!.endDate!;
-        }
-
-        _isByDayOfMonth = _event?.recurrenceRule?.weekOfMonth == null;
-        _daysOfWeek = _event?.recurrenceRule?.daysOfWeek ?? <DayOfWeek>[];
-        _monthOfYear =
-            _event?.recurrenceRule?.monthOfYear ?? MonthOfYear.January;
-        _weekOfMonth = _event?.recurrenceRule?.weekOfMonth ?? WeekNumber.First;
-        _selectedDayOfWeek =
-            _daysOfWeek.isNotEmpty ? _daysOfWeek.first : DayOfWeek.Monday;
-        _dayOfMonth = _event?.recurrenceRule?.dayOfMonth ?? 1;
-
-        if (_daysOfWeek.isNotEmpty) {
-          _updateDaysOfWeekGroup();
-        }
+  void getCurentLocation() async {
+    try {
+      final dynamic tzResult = await FlutterTimezone.getLocalTimezone();
+      if (tzResult is String) {
+        _timezone = tzResult;
+      } else {
+        try { 
+          _timezone = (tzResult as dynamic).name as String? ?? _timezone; 
+        } catch (_) {}
       }
-
-      _availability = _event!.availability;
-      _eventStatus = _event!.status;
+    } catch (e) {
+      print('Could not get the local timezone');
     }
 
-    _startTime = TimeOfDay(hour: _startDate!.hour, minute: _startDate!.minute);
-    _endTime = TimeOfDay(hour: _endDate!.hour, minute: _endDate!.minute);
+    // Update timezone for new events only
+    if (_event?.eventId == null) {
+      print('calendar_event _timezone ------------------------- $_timezone');
+      try {
+        var currentLocation = tz.getLocation(_timezone);
+        setState(() {
+          _startDate = tz.TZDateTime.now(currentLocation);
+          _endDate = tz.TZDateTime.now(currentLocation).add(const Duration(hours: 1));
+          _event?.start = _startDate;
+          _event?.end = _endDate;
+          
+          // Update times with new timezone
+          _startTime = TimeOfDay.fromDateTime(_startDate?.toLocal() ?? DateTime.now());
+          _endTime = TimeOfDay.fromDateTime(_endDate?.toLocal() ?? DateTime.now().add(const Duration(hours: 1)));
+          
+          _recurrenceEndDate = _endDate as DateTime;
+        });
+      } catch (e) {
+        print('Could not get location for timezone: $_timezone, using UTC');
+      }
+    }
+
+    // Handle existing event recurrence rules (initialization already done in _initializeDefaults)
+    if (_event != null && _isRecurringEvent) {
+      _interval = _event!.recurrenceRule!.interval!;
+      _totalOccurrences = _event!.recurrenceRule!.totalOccurrences;
+      _recurrenceFrequency = _event!.recurrenceRule!.recurrenceFrequency;
+
+      if (_totalOccurrences != null) {
+        _recurrenceRuleEndType = RecurrenceRuleEndType.MaxOccurrences;
+      }
+
+      if (_event!.recurrenceRule!.endDate != null) {
+        _recurrenceRuleEndType = RecurrenceRuleEndType.SpecifiedEndDate;
+        _recurrenceEndDate = _event!.recurrenceRule!.endDate!;
+      }
+
+      _isByDayOfMonth = _event?.recurrenceRule?.weekOfMonth == null;
+      _daysOfWeek = _event?.recurrenceRule?.daysOfWeek ?? <DayOfWeek>[];
+      _monthOfYear = _event?.recurrenceRule?.monthOfYear ?? MonthOfYear.January;
+      _weekOfMonth = _event?.recurrenceRule?.weekOfMonth ?? WeekNumber.First;
+      _selectedDayOfWeek = _daysOfWeek.isNotEmpty ? _daysOfWeek.first : DayOfWeek.Monday;
+      _dayOfMonth = _event?.recurrenceRule?.dayOfMonth ?? 1;
+
+      if (_daysOfWeek.isNotEmpty) {
+        _updateDaysOfWeekGroup();
+      }
+    }
+
+    // Handle availability and status for existing events
+    if (_event != null) {
+      if (_event!.availability != null) {
+        _availability = _event!.availability!;
+      }
+      if (_event!.status != null) {
+        _eventStatus = _event!.status;
+      }
+    }
 
     // Getting days of the current month (or a selected month for the yearly recurrence) as a default
     _getValidDaysOfMonth(_recurrenceFrequency);
-    setState(() {});
+    
+    print('DeviceCalendarPlugin calendar id is: ${_calendar.id}');
+    
+    // Ensure UI is updated after all async operations
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   void printAttendeeDetails(Attendee attendee) {
@@ -310,13 +351,13 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
                             selectedTime: _startTime,
                             selectDate: (DateTime date) {
                               setState(() {
-                                var currentLocation =
-                                    timeZoneDatabase.locations[_timezone];
-                                if (currentLocation != null) {
-                                  _startDate =
-                                      TZDateTime.from(date, currentLocation);
+                                try {
+                                  var currentLocation = tz.getLocation(_timezone);
+                                  _startDate = tz.TZDateTime.from(date, currentLocation);
                                   _event?.start = _combineDateWithTime(
                                       _startDate, _startTime);
+                                } catch (e) {
+                                  print('Error setting start date: $e');
                                 }
                               });
                             },
@@ -357,13 +398,13 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
                             selectDate: (DateTime date) {
                               setState(
                                 () {
-                                  var currentLocation =
-                                      timeZoneDatabase.locations[_timezone];
-                                  if (currentLocation != null) {
-                                    _endDate =
-                                        TZDateTime.from(date, currentLocation);
+                                  try {
+                                    var currentLocation = tz.getLocation(_timezone);
+                                    _endDate = tz.TZDateTime.from(date, currentLocation);
                                     _event?.end = _combineDateWithTime(
                                         _endDate, _endTime);
+                                  } catch (e) {
+                                    print('Error setting end date: $e');
                                   }
                                 },
                               );
@@ -797,6 +838,16 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
                               setState(() {
                                 _recurrenceRuleEndType = value;
                               });
+
+                              // Check if recurringEndDate is needed
+                              if (_recurrenceRuleEndType == RecurrenceRuleEndType.SpecifiedEndDate){
+                                // set recurringEndDate for date picker to use
+                                // this date doesn't have to be in local time since it is a specific date.
+                                _recurrenceEndDate = getDateFromDateTime(_event!.end!);
+                              } else {
+                                // remove recurringEndDate
+                                _recurrenceEndDate = null;
+                              }
                             },
                             value: _recurrenceRuleEndType,
                             items: RecurrenceRuleEndType.values
@@ -938,14 +989,15 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
               _event?.reminders = _reminders;
               _event?.availability = _availability;
               _event?.status = _eventStatus;
-              var createEventResult =
+              final createEventResult =
                   await _deviceCalendarPlugin.createOrUpdateEvent(_event);
               if (createEventResult?.isSuccess == true) {
                 Navigator.pop(context, true);
               } else {
-                showInSnackBar(createEventResult?.errors
+                final msg = (createEventResult?.errors ?? [])
                     .map((err) => '[${err.errorCode}] ${err.errorMessage}')
-                    .join(' | ') as String);
+                    .join(' | ');
+                showInSnackBar(msg);
               }
             }
           },
@@ -1092,22 +1144,32 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
     return null;
   }
 
-  TZDateTime? _combineDateWithTime(TZDateTime? date, TimeOfDay? time) {
+  tz.TZDateTime? _combineDateWithTime(tz.TZDateTime? date, TimeOfDay? time) {
     if (date == null) return null;
-    var currentLocation = timeZoneDatabase.locations[_timezone];
+    
+    try {
+      var currentLocation = tz.getLocation(_timezone);
+      final dateWithoutTime = tz.TZDateTime.from(
+          DateTime.parse(DateFormat('y-MM-dd 00:00:00').format(date)),
+          currentLocation);
 
-    final dateWithoutTime = TZDateTime.from(
-        DateTime.parse(DateFormat('y-MM-dd 00:00:00').format(date)),
-        currentLocation!);
+      if (time == null) return dateWithoutTime;
+      if (Platform.isAndroid && _event?.allDay == true) return dateWithoutTime;
 
-    if (time == null) return dateWithoutTime;
-    if (Platform.isAndroid && _event?.allDay == true) return dateWithoutTime;
-
-    return dateWithoutTime
-        .add(Duration(hours: time.hour, minutes: time.minute));
+      return dateWithoutTime
+          .add(Duration(hours: time.hour, minutes: time.minute));
+    } catch (e) {
+      print('Error in _combineDateWithTime: $e');
+      return date; // Return original date as fallback
+    }
   }
 
   void showInSnackBar(String value) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value)));
+  }
+
+  /// Retrieve the DateTime of the year, month, and day of [dateValue]
+  DateTime getDateFromDateTime(DateTime dateValue) {
+    return DateTime(dateValue.year, dateValue.month, dateValue.day);
   }
 }

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 import 'common/app_routes.dart';
 import 'presentation/pages/calendars.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  tz.initializeTimeZones();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);

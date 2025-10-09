@@ -313,7 +313,12 @@ class _EventItemState extends State<EventItem> {
   void setCurentLocation() async {
     String? timezone;
     try {
-      timezone = await FlutterTimezone.getLocalTimezone();
+      final dynamic tzResult = await FlutterTimezone.getLocalTimezone();
+      if (tzResult is String) {
+        timezone = tzResult;
+      } else {
+        try { timezone = (tzResult as dynamic).name as String?; } catch (_) {}
+      }
     } catch (e) {
       print('Could not get the local timezone');
     }
