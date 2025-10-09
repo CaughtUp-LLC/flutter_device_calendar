@@ -1,4 +1,4 @@
-import 'package:flutter_device_calendar/device_calendar.dart';
+import 'package:flutter_device_calendar/flutter_device_calendar.dart';
 import 'package:flutter_device_calendar/src/common/error_codes.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';

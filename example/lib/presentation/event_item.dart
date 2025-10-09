@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter_device_calendar/device_calendar.dart';
+import 'package:flutter_device_calendar/flutter_device_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:intl/intl.dart';

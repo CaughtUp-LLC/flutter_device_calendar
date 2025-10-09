@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter_device_calendar/device_calendar.dart';
+import 'package:flutter_device_calendar/flutter_device_calendar.dart';
 import 'package:flutter/material.dart';
 
 import '../event_item.dart';

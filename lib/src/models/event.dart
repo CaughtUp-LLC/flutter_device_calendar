@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:collection/collection.dart';
 
-import '../../device_calendar.dart';
+import '../../flutter_device_calendar.dart';
 import '../common/error_messages.dart';
 
 /// An event associated with a calendar
