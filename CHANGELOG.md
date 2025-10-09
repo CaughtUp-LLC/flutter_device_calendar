@@ -1,6 +1,42 @@
 # Changelog
 
-<!-- To benefit from the current changelog reader in CI/CD, please follow the changelog format from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/). -->
+All notable changes to this project will be documented in this file.
+
+This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## Notice
+
+This package, `flutter_device_calendar`, is a fork of the original [device_calendar](https://pub.dev/packages/device_calendar) package being maintained and enhanced for production apps. For more details about the original package, please refer to the original repository: [device_calendar](https://github.com/builttoroam/device_calendar).
+
+<!-- Template:
+## NEW · 2025-xx-xx
+
+### ⚠️ BREAKING CHANGES
+### 🎉 New Features
+### ⚡ Changes
+### 🐛 Bug Fixes
+### 📜 Documentation updates
+### 🏗️ Refactoring
+### 📦 Build & CI
+-->
+
+## 0.0.0 · 2025-10-09
+
+### 🎉 Initial Release
+
+* Initial release of the forked package `flutter_device_calendar`.
+* Upgraded dependencies.
+* Enabled null safety.
+* Enabled Dart 3 compatibility.
+* Fixed example project.
+* Added start time selection for example project.
+* Added initial implementation of event parent id for recurring events.
+
+---
+
+## Historical Changelog (from original device_calendar package)
+
+The following changelog entries are from the original `device_calendar` package:
 
 ## [4.3.3](https://github.com/builttoroam/device_calendar/releases/tag/4.3.3)
 
