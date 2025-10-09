@@ -13,6 +13,11 @@ class Event {
   /// Read-only. The identifier of the calendar that this event is associated with
   String? calendarId;
 
+  /// Read-only. The parent event ID for recurring event instances. 
+  /// For recurring events, this points to the master/parent event.
+  /// For non-recurring events, this is null.
+  String? parentEventId;
+
   /// The title of this event
   String? title;
 
@@ -61,6 +66,7 @@ class Event {
   ///`android/src/main/kotlin/com/builttoroam/devicecalendar/DeviceCalendarPlugin.kt`
   Event(this.calendarId,
       {this.eventId,
+      this.parentEventId,
       this.title,
       this.start,
       this.end,
@@ -108,6 +114,7 @@ class Event {
 
     eventId = json['eventId'];
     calendarId = json['calendarId'];
+    parentEventId = json['parentEventId'];
     title = json['eventTitle'];
     description = json['eventDescription'];
 
@@ -189,6 +196,7 @@ class Event {
 
     data['calendarId'] = calendarId;
     data['eventId'] = eventId;
+    data['parentEventId'] = parentEventId;
     data['eventTitle'] = title;
     data['eventDescription'] = description;
     data['eventStartDate'] = start?.millisecondsSinceEpoch ??

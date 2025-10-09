@@ -28,6 +28,7 @@ public class SwiftDeviceCalendarPlugin: NSObject, FlutterPlugin, EKEventViewDele
     struct Event: Codable {
         let eventId: String
         let calendarId: String
+        let parentEventId: String?
         let eventTitle: String
         let eventDescription: String?
         let eventStartDate: Int64
@@ -372,6 +373,7 @@ public class SwiftDeviceCalendarPlugin: NSObject, FlutterPlugin, EKEventViewDele
         let event = Event(
             eventId: ekEvent.eventIdentifier,
             calendarId: calendarId,
+            parentEventId: ekEvent.calendarItemIdentifier,
             eventTitle: ekEvent.title ?? "New Event",
             eventDescription: ekEvent.notes,
             eventStartDate: Int64(ekEvent.startDate.millisecondsSinceEpoch),
