@@ -5,6 +5,42 @@ You'll be able to get a reference of how the APIs are used.
 
 For a full API reference, the documentation can be found at [pub.dev](https://pub.dev/documentation/device_calendar/latest/device_calendar/device_calendar-library.html).
 
+## Testing
+
+### Event ID Integration Tests
+
+The example includes comprehensive integration tests to verify that event IDs work correctly on both Android and iOS platforms. These tests cover:
+
+- Creating events and verifying event IDs are returned
+- Retrieving events and checking event ID consistency  
+- Updating events while maintaining event ID stability
+- Deleting events using event IDs
+- Platform-specific event ID format validation
+
+#### Running the Event ID Tests
+
+To run the event ID integration tests:
+
+```bash
+# Run on both Android and iOS (if available)
+./run_event_id_tests.sh
+
+# Or run manually for specific platforms:
+
+# Android (requires connected device or running emulator)
+flutter drive --driver=integration_test/integration_test_android.dart --target=integration_test/event_id_test.dart
+
+# iOS (requires running iOS simulator, macOS only)  
+flutter drive --driver=integration_test/integration_test.dart --target=integration_test/event_id_test.dart
+```
+
+**Prerequisites:**
+- For Android: Connected device or running emulator with calendar permissions
+- For iOS: Running iOS simulator (macOS only)
+- Calendar read/write permissions granted to the app
+
+The test script automatically handles Android permission grants and provides detailed output about test progress and results.
+
 ## DayOfWeekGroup Enum
 
 `DayOfWeekGroup` enum allows to explicitly choose and return a list of `DayOfWeek` enum values by using an extension `getDays`:

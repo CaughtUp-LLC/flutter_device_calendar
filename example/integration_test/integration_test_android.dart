@@ -11,19 +11,27 @@ flutter drive --driver=integration_test/integration_test.dart --target=integrati
   */
 
 Future<void> main() async {
-  await Process.run('adb', [
-    'shell',
-    'pm',
-    'grant',
-    'com.builttoroam.devicecalendarexample',
-    'android.permission.READ_CALENDAR'
-  ]);
-  await Process.run('adb', [
-    'shell',
-    'pm',
-    'grant',
-    'com.builttoroam.devicecalendarexample',
-    'android.permission.WRITE_CALENDAR'
-  ]);
+  // Try to grant permissions, but don't fail if adb is not available
+  try {
+    await Process.run('adb', [
+      'shell',
+      'pm',
+      'grant',
+      'com.builttoroam.devicecalendarexample',
+      'android.permission.READ_CALENDAR'
+    ]);
+    await Process.run('adb', [
+      'shell',
+      'pm',
+      'grant',
+      'com.builttoroam.devicecalendarexample',
+      'android.permission.WRITE_CALENDAR'
+    ]);
+    print('✅ Android permissions granted successfully');
+  } catch (e) {
+    print('⚠️  Could not grant Android permissions automatically: $e');
+    print('Please ensure calendar permissions are granted manually if needed');
+  }
+  
   await integrationDriver();
 }
