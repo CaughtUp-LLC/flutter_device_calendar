@@ -30,8 +30,8 @@ check_device() {
 # Function to grant calendar permissions on Android
 grant_android_permissions() {
     echo "📱 Granting Android calendar permissions..."
-    adb shell pm grant com.builttoroam.devicecalendarexample android.permission.READ_CALENDAR || echo "⚠️  Permission already granted or failed"
-    adb shell pm grant com.builttoroam.devicecalendarexample android.permission.WRITE_CALENDAR || echo "⚠️  Permission already granted or failed"
+    adb shell pm grant dev.flutter_device_calendar.example android.permission.READ_CALENDAR || echo "⚠️  Permission already granted or failed"
+    adb shell pm grant dev.flutter_device_calendar.example android.permission.WRITE_CALENDAR || echo "⚠️  Permission already granted or failed"
     echo "✅ Android permissions processed"
 }
 

@@ -17,14 +17,14 @@ Future<void> main() async {
       'shell',
       'pm',
       'grant',
-      'com.builttoroam.devicecalendarexample',
+      'dev.flutter_device_calendar.example',
       'android.permission.READ_CALENDAR'
     ]);
     await Process.run('adb', [
       'shell',
       'pm',
       'grant',
-      'com.builttoroam.devicecalendarexample',
+      'dev.flutter_device_calendar.example',
       'android.permission.WRITE_CALENDAR'
     ]);
     print('✅ Android permissions granted successfully');

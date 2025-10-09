@@ -14,17 +14,18 @@ def flutterVersionCode = (localProperties.getProperty('flutter.versionCode') ?: 
 def flutterVersionName = localProperties.getProperty('flutter.versionName') ?: '1.0'
 
 android {
-    namespace "com.builttoroam.devicecalendarexample"
-    compileSdk 35
+    namespace "dev.flutter_device_calendar.example"
+    compileSdkVersion flutter.compileSdkVersion
     ndkVersion "26.3.11579264"
 
     defaultConfig {
-        applicationId "com.builttoroam.devicecalendarexample"
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "dev.flutter_device_calendar.example"
+        // You can update the following values to match your application needs.
         minSdkVersion flutter.minSdkVersion
-        targetSdkVersion 35
+        targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode
         versionName flutterVersionName
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
