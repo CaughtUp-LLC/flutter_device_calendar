@@ -25,9 +25,6 @@ This package, `flutter_device_calendar`, is a fork of the original [device_calen
 ### 🎉 Initial Release
 
 * Initial release of the forked package `flutter_device_calendar`.
-* Upgraded dependencies.
-* Enabled null safety.
-* Enabled Dart 3 compatibility.
 * Fixed example project.
 * Added start time selection for example project.
 * Added initial implementation of event parent id for recurring events.
