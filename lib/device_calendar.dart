@@ -1,4 +1,4 @@
-library device_calendar;
+library flutter_device_calendar;
 
 export 'src/common/calendar_enums.dart';
 export 'src/common/recurrence_frequency.dart';

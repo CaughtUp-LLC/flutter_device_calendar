@@ -1,6 +1,6 @@
-package com.builttoroam.devicecalendar
+package com.caughtup.flutter_device_calendar
 
-import com.builttoroam.devicecalendar.models.EventStatus
+import com.caughtup.flutter_device_calendar.models.EventStatus
 import com.google.gson.*
 import java.lang.reflect.Type
 

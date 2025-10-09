@@ -1,4 +1,4 @@
-package com.builttoroam.devicecalendar.common
+package com.caughtup.flutter_device_calendar.common
 
 enum class DayOfWeek {
     SUNDAY,

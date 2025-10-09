@@ -1,4 +1,4 @@
-package com.builttoroam.devicecalendar.models
+package com.caughtup.flutter_device_calendar.models
 
 class Calendar(
     val id: String,

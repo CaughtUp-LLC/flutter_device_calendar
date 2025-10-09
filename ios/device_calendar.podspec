@@ -2,13 +2,13 @@
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 #
 Pod::Spec.new do |s|
-  s.name             = 'device_calendar'
+  s.name             = 'flutter_device_calendar'
   s.version          = '0.0.1'
-  s.summary          = 'A new flutter plugin project.'
+  s.summary          = 'A cross platform plugin for modifying calendars on the user\'s device (enhanced fork).'
   s.description      = <<-DESC
-A new flutter plugin project.
+A cross platform plugin for modifying calendars on the user's device (enhanced fork).
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://github.com/CaughtUp-LLC/flutter_device_calendar'
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }

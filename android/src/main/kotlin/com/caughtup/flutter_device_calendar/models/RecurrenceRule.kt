@@ -1,7 +1,7 @@
-package com.builttoroam.devicecalendar.models
+package com.caughtup.flutter_device_calendar.models
 
-import com.builttoroam.devicecalendar.common.DayOfWeek
-import com.builttoroam.devicecalendar.common.RecurrenceFrequency
+import com.caughtup.flutter_device_calendar.common.DayOfWeek
+import com.caughtup.flutter_device_calendar.common.RecurrenceFrequency
 
 
 class RecurrenceRule(val recurrenceFrequency : RecurrenceFrequency) {

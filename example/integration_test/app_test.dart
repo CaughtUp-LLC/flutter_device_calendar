@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:uuid/uuid.dart';
 
-import 'package:device_calendar_example/main.dart' as app;
+import 'package:flutter_device_calendar_example/main.dart' as app;
 
 /// NOTE: These integration tests are currently made to be run on a physical device where there is at least a calendar that can be written to.
 /// Calendar permissions are needed. See example/test_driver/integration_test.dart for how to run this on Android

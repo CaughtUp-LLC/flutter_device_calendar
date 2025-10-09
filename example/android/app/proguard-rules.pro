@@ -1,1 +1,1 @@
--keep class com.builttoroam.devicecalendar.** { *; }
+-keep class com.caughtup.flutter_device_calendar.** { *; }

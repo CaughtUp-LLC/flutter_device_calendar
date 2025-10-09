@@ -1,6 +1,6 @@
-package com.builttoroam.devicecalendar
+package com.caughtup.flutter_device_calendar
 
-import com.builttoroam.devicecalendar.common.RecurrenceFrequency
+import com.caughtup.flutter_device_calendar.common.RecurrenceFrequency
 import com.google.gson.*
 import java.lang.reflect.Type
 

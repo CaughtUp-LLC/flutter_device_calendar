@@ -61,9 +61,9 @@ class Event {
   ///Swift:
   ///`ios/Classes/SwiftDeviceCalendarPlugin.swift`
   ///Kotlin:
-  ///`android/src/main/kotlin/com/builttoroam/devicecalendar/models/Event.kt`
-  ///`android/src/main/kotlin/com/builttoroam/devicecalendar/CalendarDelegate.kt`
-  ///`android/src/main/kotlin/com/builttoroam/devicecalendar/DeviceCalendarPlugin.kt`
+  ///`android/src/main/kotlin/com/caughtup/flutter_device_calendar/models/Event.kt`
+  ///`android/src/main/kotlin/com/caughtup/flutter_device_calendar/CalendarDelegate.kt`
+  ///`android/src/main/kotlin/com/caughtup/flutter_device_calendar/DeviceCalendarPlugin.kt`
   Event(this.calendarId,
       {this.eventId,
       this.parentEventId,

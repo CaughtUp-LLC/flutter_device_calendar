@@ -82,7 +82,7 @@ public class SwiftDeviceCalendarPlugin: NSObject, FlutterPlugin, EKEventViewDele
 		case NONE
     }
 
-    static let channelName = "plugins.builttoroam.com/device_calendar"
+    static let channelName = "plugins.caughtup.com/flutter_device_calendar"
     let notFoundErrorCode = "404"
     let notAllowed = "405"
     let genericError = "500"

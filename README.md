@@ -1,8 +1,10 @@
-# Device Calendar Plugin
+# Flutter Device Calendar Plugin
 
-[![pub package](https://img.shields.io/pub/v/device_calendar.svg)](https://pub.dartlang.org/packages/device_calendar) ![Pub Version (including pre-releases)](https://img.shields.io/pub/v/device_calendar?include_prereleases&label=Prerelease) [![build](https://github.com/builttoroam/device_calendar/actions/workflows/dart.yml/badge.svg?branch=develop)](https://github.com/builttoroam/device_calendar/actions/workflows/dart.yml)
+[![pub package](https://img.shields.io/pub/v/flutter_device_calendar.svg)](https://pub.dartlang.org/packages/flutter_device_calendar)
 
 A cross platform plugin for modifying calendars on the user's device.
+
+> **Note**: This package, `flutter_device_calendar`, is a fork of the original [device_calendar](https://github.com/builttoroam/device_calendar) package. We have created this fork to maintain and enhance the package for use in production apps. For more details about the original package, please refer to its repository: [device_calendar](https://github.com/builttoroam/device_calendar).
 
 ## Breaking changes at v4
 
@@ -63,7 +65,7 @@ For other use cases, feedback or future developments on the feature, feel free t
 
 ## Null-safety migration
 
-From `v3.9.0`, device_calendar is null-safe. However, not all workflows have been checked and bugs from older versions still persist.
+From `v3.9.0`, this package is null-safe. However, not all workflows have been checked and bugs from older versions still persist.
 
 You are strongly advised to test your workflow with the new package before shipping.
 Better yet, please leave a note for what works and what doesn't, or contribute some bug fixes!
@@ -84,7 +86,7 @@ By default, all android apps go through R8 for file shrinking when building a re
 You may add the following setting to the ProGuard rules file `proguard-rules.pro` (thanks to [Britannio Jarrett](https://github.com/britannio)). Read more about the issue [here](https://github.com/builttoroam/device_calendar/issues/99)
 
 ```
--keep class com.builttoroam.devicecalendar.** { *; }
+-keep class com.caughtup.flutter_device_calendar.** { *; }
 ```
 
 See [here](https://github.com/builttoroam/device_calendar/issues/99#issuecomment-612449677) for an example setup.

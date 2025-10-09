@@ -1,5 +1,5 @@
 class ChannelConstants {
-  static const String channelName = 'plugins.builttoroam.com/device_calendar';
+  static const String channelName = 'plugins.caughtup.com/flutter_device_calendar';
 
   static const String methodNameRequestPermissions = 'requestPermissions';
   static const String methodNameHasPermissions = 'hasPermissions';

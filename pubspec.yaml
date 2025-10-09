@@ -1,7 +1,7 @@
-name: device_calendar
-description: A cross platform plugin for modifying calendars on the user's device.
+name: flutter_device_calendar
+description: A cross platform plugin for modifying calendars on the user's device (enhanced fork).
 version: 4.3.3
-homepage: https://github.com/builttoroam/device_calendar/tree/master
+homepage: https://github.com/CaughtUp-LLC/flutter_device_calendar
 
 dependencies:
   flutter:
@@ -20,7 +20,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.builttoroam.devicecalendar
+        package: com.caughtup.flutter_device_calendar
         pluginClass: DeviceCalendarPlugin
       ios:
         pluginClass: DeviceCalendarPlugin

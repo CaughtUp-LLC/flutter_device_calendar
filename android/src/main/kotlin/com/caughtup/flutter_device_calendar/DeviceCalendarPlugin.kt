@@ -1,12 +1,12 @@
-package com.builttoroam.devicecalendar
+package com.caughtup.flutter_device_calendar
 
 import android.app.Activity
 import android.content.Context
 import androidx.annotation.NonNull
-import com.builttoroam.devicecalendar.common.Constants
-import com.builttoroam.devicecalendar.common.DayOfWeek
-import com.builttoroam.devicecalendar.common.RecurrenceFrequency
-import com.builttoroam.devicecalendar.models.*
+import com.caughtup.flutter_device_calendar.common.Constants
+import com.caughtup.flutter_device_calendar.common.DayOfWeek
+import com.caughtup.flutter_device_calendar.common.RecurrenceFrequency
+import com.caughtup.flutter_device_calendar.models.*
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -15,7 +15,7 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
-const val CHANNEL_NAME = "plugins.builttoroam.com/device_calendar"
+const val CHANNEL_NAME = "plugins.caughtup.com/flutter_device_calendar"
 
 class DeviceCalendarPlugin() : FlutterPlugin, MethodCallHandler, ActivityAware {
 

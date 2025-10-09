@@ -1,4 +1,4 @@
-import 'package:device_calendar/device_calendar.dart';
+import 'package:flutter_device_calendar/device_calendar.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:timezone/data/latest.dart' as tz_data;

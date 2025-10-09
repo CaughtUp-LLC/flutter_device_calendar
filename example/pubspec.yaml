@@ -1,5 +1,5 @@
-name: device_calendar_example
-description: Demonstrates how to use the device_calendar plugin.
+name: flutter_device_calendar_example
+description: Demonstrates how to use the flutter_device_calendar plugin.
 version: 3.2.0
 publish_to: none
 
@@ -17,7 +17,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons:
-  device_calendar:
+  flutter_device_calendar:
     path: ../
 
   collection: ^1.18.0

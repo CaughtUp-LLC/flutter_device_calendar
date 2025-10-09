@@ -1,5 +1,5 @@
-import 'package:device_calendar/device_calendar.dart';
-import 'package:device_calendar_example/presentation/pages/calendar_add.dart';
+import 'package:flutter_device_calendar/device_calendar.dart';
+import 'package:flutter_device_calendar_example/presentation/pages/calendar_add.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 

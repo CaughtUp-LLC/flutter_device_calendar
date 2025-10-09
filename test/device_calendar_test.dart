@@ -1,12 +1,12 @@
-import 'package:device_calendar/device_calendar.dart';
-import 'package:device_calendar/src/common/error_codes.dart';
+import 'package:flutter_device_calendar/device_calendar.dart';
+import 'package:flutter_device_calendar/src/common/error_codes.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  const channel = MethodChannel('plugins.builttoroam.com/device_calendar');
+  const channel = MethodChannel('plugins.caughtup.com/flutter_device_calendar');
   var deviceCalendarPlugin = DeviceCalendarPlugin();
 
   final log = <MethodCall>[];
