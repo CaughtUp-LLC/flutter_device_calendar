@@ -24,9 +24,9 @@ jobs:
           channel: "stable"
       - run: dart --version
       - run: flutter --version
-      - run: flutter test
       - name: publish test
         run: flutter pub publish --dry-run
+      - run: flutter test
       - name: android build
         run: |
           cd example
