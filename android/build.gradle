@@ -1,9 +1,9 @@
-group 'com.caughtup.flutter_device_calendar'
-version '1.0-SNAPSHOT'
-
 plugins {
     id "com.android.library"
 }
+
+group 'com.caughtup.flutter_device_calendar'
+version '1.0-SNAPSHOT'
 
 android {
     namespace = "com.caughtup.flutter_device_calendar"
