@@ -22,3 +22,9 @@ example/ios/Flutter/Flutter.podspec
 **/.project
 **/.classpath
 .vscode
+**/local.properties
+.avd-check/
+__pycache__/
+
+*.iml
+.DS_Store

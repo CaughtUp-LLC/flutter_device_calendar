@@ -17,7 +17,7 @@
 deviceId=$(xcrun simctl create FlutterDeviceCalendarTest "iPhone 13" 2> /dev/null | tail -1)
 echo "Created device: $deviceId, booting..."
 xcrun simctl boot $deviceId
-xcrun simctl privacy $deviceId grant calendar dev.flutter-device-calendar.example
+xcrun simctl privacy $deviceId grant calendar dev.flutter_device_calendar.example
 echo "Running tests..."
 flutter drive --driver=integration_test/integration_test.dart --target=integration_test/app_test.dart -d $deviceId
 echo "Removing device: $deviceId"

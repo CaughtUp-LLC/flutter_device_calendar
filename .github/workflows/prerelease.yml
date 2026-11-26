@@ -4,7 +4,7 @@ name: prerelease
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the develop branch
+  # Triggers the workflow on push to release/hotfix branches or on version tags
   push:
     branches: [release, hotfix]
     tags:
@@ -26,6 +26,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
       - run: dart --version
       - run: flutter --version
       - name: Get Git Tag
@@ -39,7 +41,7 @@ jobs:
         uses: mindsers/changelog-reader-action@v2.0.0
       - name: Edit changelog.md for dev release
         run: |
-          sed -i "0,/\#\# \[.*/s//## [${{env.TAG}}]/" CHANGELOG.md
+          sed -i "0,/^## [0-9]/s//## ${{env.TAG}}/" CHANGELOG.md
           cat CHANGELOG.md
       # copied from https://github.com/dart-lang/setup-dart/issues/68#issuecomment-2251116730
       - name: 🪪 Get Id Token
