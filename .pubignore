@@ -1,1 +1,37 @@
+# Mirror of .gitignore for pub.dev archives: when a .pubignore exists,
+# pub stops reading .gitignore, so everything git ignores must be
+# repeated here.
+
+# Files and directories created by pub
+.dart_tool/
+.packages
+.pub/
+build/
+pubspec.lock
+
+# Directory created by dartdoc
+doc/api/
+device_calendar.code-workspace
+flutter_device_calendar.code-workspace
+example/.flutter-plugins-dependencies
+example/ios/Flutter/flutter_export_environment.sh
+example/ios/Flutter/Flutter.podspec
+**/.idea/
+**/.vs/
+**/.settings
+**/.project
+**/.classpath
+.vscode
+**/local.properties
+.avd-check/
+__pycache__/
+
+*.iml
+.DS_Store
+
+# Example build state (nested .gitignore files are not consulted by pub)
+example/ios/Podfile.lock
+example/ios/Flutter/ephemeral/
+
+# Local tooling, not part of the published package
 scripts/
