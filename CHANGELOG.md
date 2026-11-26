@@ -20,6 +20,28 @@ This package, `flutter_device_calendar`, is a fork of the original [device_calen
 ### 📦 Build & CI
 -->
 
+## 1.0.0 · 2026-11-25
+
+### 📦 Build & CI
+
+* Bumped to 1.0.0 as the first stable release of this fork.
+* Example Android toolchain upgraded to Gradle 9.5, AGP 9.3.1 and Kotlin 2.4.20 (requires Flutter 3.50+; see README).
+* Removed the deprecated `package` attribute from the plugin `AndroidManifest.xml`.
+* CI: pinned JDK 17 for the Android build, fixed the Swift bridging header import.
+
+### 🏗️ Refactoring
+
+* Removed junk files from version control (`.DS_Store`, `*.iml`, example `.metadata`, iOS `Flutter/ephemeral/`, `Podfile.lock`) and added matching `.gitignore` entries.
+* Fixed the example iOS bundle id to `dev.flutter_device_calendar.example` (hyphens are not allowed in iOS bundle ids).
+* Raised the iOS deployment target to 12.0 in the podspec and the example `Podfile`.
+* Added `scripts/avd_check.py`, an emulator smoke-test gate that installs the example debug APK and verifies the app launches.
+
+### 📜 Documentation updates
+
+* README: added a Requirements section (Flutter 3.50+, Android NDK for local builds).
+
+---
+
 ## 0.0.0 · 2025-10-09
 
 ### 🎉 Initial Release

@@ -1,6 +1,6 @@
 name: flutter_device_calendar
 description: A cross platform plugin for modifying calendars on the user's device (enhanced fork).
-version: 0.0.0
+version: 1.0.0
 homepage: https://github.com/CaughtUp-LLC/flutter_device_calendar
 repository: https://github.com/CaughtUp-LLC/flutter_device_calendar
 issue_tracker: https://github.com/CaughtUp-LLC/flutter_device_calendar/issues

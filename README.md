@@ -6,6 +6,11 @@ A cross platform plugin for modifying calendars on the user's device.
 
 > **Note**: This package, `flutter_device_calendar`, is a fork of the original [device_calendar](https://github.com/builttoroam/device_calendar) package. We have created this fork to maintain and enhance the package for use in production apps. For more details about the original package, please refer to its repository: [device_calendar](https://github.com/builttoroam/device_calendar).
 
+## Requirements
+
+* **Flutter 3.50+ (Dart 3.14.0)** — the example app's Android toolchain (Gradle 9.5, AGP 9.3.1, Kotlin 2.4.20) requires a recent SDK: it builds with Flutter 3.50.0 and fails to compile with Flutter 3.32.8.
+* **Android local builds** — Android SDK plus NDK 26.1.10909125 (needed by the build's native-library stripping step). Install it with `sdkmanager "ndk;26.1.10909125"`.
+* **iOS** — deployment target 12.0 or newer.
 ## Breaking changes at v4
 
 * **If you're upgrading from previous versions, your code will need to be modified (slightly), otherwise it will not run after update. See [Timezone support](https://github.com/builttoroam/device_calendar#timezone-support-with-tzdatetime) for more details.**

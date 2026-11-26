@@ -43,3 +43,6 @@ Icon?
 
 **/.symlinks/
 Pods/
+
+Podfile.lock
+/Flutter/ephemeral/
